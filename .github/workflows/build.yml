@@ -1,7 +1,7 @@
 name: Build Android APK
 
 on:
-  workflow_dispatch:   # lets you trigger it manually from GitHub's UI
+  workflow_dispatch:
   push:
     branches: [ main ]
 
@@ -20,7 +20,10 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt update
+          sudo dpkg --add-architecture i386
+          sudo apt update
           sudo apt install -y libtool libtool-bin autoconf automake pkg-config zip unzip openjdk-17-jdk build-essential
+          sudo apt install -y libc6:i386 libncurses5:i386 libstdc++6:i386 libgcc1:i386 zlib1g:i386
 
       - name: Install Buildozer
         run: pip install buildozer cython
